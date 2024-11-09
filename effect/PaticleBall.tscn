@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://c62bnw775oawk"]
+
+[ext_resource type="Script" path="res://effect/PaticleBall.cs" id="1_r3rr6"]
+[ext_resource type="PackedScene" uid="uid://b5qqrrag2fj62" path="res://effect/trail.tscn" id="2_epsm8"]
+[ext_resource type="Texture2D" uid="uid://v2l7fd6snpvn" path="res://asset/particle1.png" id="3_u77oj"]
+[ext_resource type="Texture2D" uid="uid://dcrbfrt7o73nh" path="res://asset/纹理1.png" id="4_cboax"]
+
+[sub_resource type="Gradient" id="Gradient_d73ka"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1tciy"]
+gradient = SubResource("Gradient_d73ka")
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.457014, 0.529412)
+fill_to = Vector2(0.904977, 0.466063)
+
+[sub_resource type="Environment" id="Environment_cnhw3"]
+background_mode = 3
+glow_enabled = true
+glow_bloom = 1.0
+fog_enabled = true
+fog_light_color = Color(0.501114, 0.536127, 0.591149, 1)
+
+[sub_resource type="Curve" id="Curve_dkpuc"]
+_data = [Vector2(0, 0.538461), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_fq77r"]
+colors = PackedColorArray(0.03, 0.806, 1, 0, 0.06, 0.780667, 1, 1)
+
+[node name="paticleBall" type="Node2D"]
+position = Vector2(856, 182)
+script = ExtResource("1_r3rr6")
+
+[node name="Paticle1" type="Sprite2D" parent="."]
+self_modulate = Color(0.6, 5, 5, 0.022)
+texture = ExtResource("3_u77oj")
+
+[node name="PointLight2D" type="PointLight2D" parent="Paticle1"]
+texture = SubResource("GradientTexture2D_1tciy")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+gizmo_extents = 73.1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cnhw3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Line2D" parent="CanvasLayer" node_paths=PackedStringArray("target") instance=ExtResource("2_epsm8")]
+modulate = Color(1, 3, 3, 1)
+position = Vector2(856, 182)
+width = 20.0
+width_curve = SubResource("Curve_dkpuc")
+default_color = Color(1, 3, 3, 1)
+gradient = SubResource("Gradient_fq77r")
+texture = ExtResource("4_cboax")
+texture_mode = 1
+target = NodePath("../../Marker2D")
+trailLength = 20

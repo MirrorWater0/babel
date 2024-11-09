@@ -1,0 +1,120 @@
+[gd_scene load_steps=10 format=3 uid="uid://dfttq2ij6221o"]
+
+[ext_resource type="Script" path="res://effect/Echo/echoing/Echoing.cs" id="1_n4lhe"]
+[ext_resource type="Shader" path="res://shader/ring0.gdshader" id="2_5rn64"]
+[ext_resource type="Texture2D" uid="uid://c57sgeu6p328u" path="res://asset/skillEffectIcon/cycle.png" id="3_mgsl0"]
+
+[sub_resource type="Animation" id="Animation_3olbj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ring:material:shader_parameter/radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ring:material:shader_parameter/alpha")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ring:material:shader_parameter/thickness")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_svxwy"]
+resource_name = "echoing"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ring:material:shader_parameter/radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ring:material:shader_parameter/alpha")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667, 0.666667, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 0.41, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ring:material:shader_parameter/thickness")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.042]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qkesh"]
+_data = {
+"RESET": SubResource("Animation_3olbj"),
+"echoing": SubResource("Animation_svxwy")
+}
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ytakg"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_snuhj"]
+noise = SubResource("FastNoiseLite_ytakg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5apt6"]
+shader = ExtResource("2_5rn64")
+shader_parameter/radius = 0.0
+shader_parameter/thickness = 0.0
+shader_parameter/color = Vector4(0.5, 2, 3, 0.5)
+shader_parameter/brightness = 14.0
+shader_parameter/angular_speed = 5.0
+shader_parameter/radial_speed = 5.0
+shader_parameter/alpha = 1.0
+shader_parameter/noise = SubResource("NoiseTexture2D_snuhj")
+
+[node name="Echoing" type="Node2D"]
+script = ExtResource("1_n4lhe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qkesh")
+}
+autoplay = "echoing"
+
+[node name="ring" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_5apt6")
+scale = Vector2(29.5279, 29.5279)
+texture = ExtResource("3_mgsl0")

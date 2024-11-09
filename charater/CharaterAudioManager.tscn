@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://csdndqagem2hj"]
+
+[ext_resource type="AudioStream" uid="uid://bng0tdi7jtatc" path="res://asset/audio/矛头击中铠甲.wav" id="1_lkjgw"]
+[ext_resource type="AudioStream" uid="uid://b74ahx6efenj" path="res://asset/audio/刀刺穿身体的声音.wav" id="2_wnmfg"]
+
+[node name="AudioManager" type="Node"]
+
+[node name="HitBlock" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_lkjgw")
+
+[node name="BlockBreak" type="AudioStreamPlayer" parent="."]
+
+[node name="Hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_wnmfg")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dpkbq2i7aiqkx"]
+
+[ext_resource type="Script" path="res://card/skill/Skill.cs" id="1_12q76"]
+[ext_resource type="PackedScene" uid="uid://bygkxbdqqvjqq" path="res://effect/Echo/flash/flash.tscn" id="1_66lb6"]
+[ext_resource type="Texture2D" uid="uid://15lif4w1q24o" path="res://asset/card/cardIcon/sword0.png" id="1_kcxo1"]
+
+[resource]
+script = ExtResource("1_12q76")
+name = "flash"
+charaterName = "Echo"
+cost = 0
+cardIcon = ExtResource("1_kcxo1")
+releaseArea = 1
+once = false
+EffectScene = ExtResource("1_66lb6")
+description = "还来不及思索，只能瞥见那一抹白光。造成8点伤害，丢弃一张手牌"

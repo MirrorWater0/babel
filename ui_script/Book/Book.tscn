@@ -1,0 +1,131 @@
+[gd_scene load_steps=12 format=3 uid="uid://dwwsr3rjse8ul"]
+
+[ext_resource type="Script" path="res://ui_script/Book/NoteBook.cs" id="1_ciyqh"]
+[ext_resource type="Texture2D" uid="uid://cl4w0g0t67c84" path="res://asset/ui/Book2.png" id="1_h4oi5"]
+[ext_resource type="Shader" path="res://shader/PageFlip.gdshader" id="2_n6on0"]
+[ext_resource type="Texture2D" uid="uid://dijmqyvgph1xp" path="res://asset/ui/page.png" id="3_ulmyv"]
+[ext_resource type="Shader" path="res://shader/TextFilp.gdshader" id="4_dllwm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t3y0h"]
+shader = ExtResource("2_n6on0")
+shader_parameter/process = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nngmp"]
+shader = ExtResource("4_dllwm")
+shader_parameter/process = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g02q5"]
+
+[sub_resource type="Animation" id="Animation_7j380"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BookTexture/CanvasGroup:material:shader_parameter/process")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BookTexture/Page:material:shader_parameter/process")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_bt82r"]
+resource_name = "flipforward"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BookTexture/CanvasGroup:material:shader_parameter/process")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.03333, 1.13333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 2.0, 2.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BookTexture/Page:material:shader_parameter/process")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.13333, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 1.13333, 2.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hn2vr"]
+_data = {
+"RESET": SubResource("Animation_7j380"),
+"flipforward": SubResource("Animation_bt82r")
+}
+
+[node name="Book" type="CanvasLayer"]
+script = ExtResource("1_ciyqh")
+
+[node name="BookTexture" type="TextureRect" parent="."]
+offset_left = 962.0
+offset_top = -44.0
+offset_right = 2882.0
+offset_bottom = 1146.0
+texture = ExtResource("1_h4oi5")
+
+[node name="Page" type="TextureRect" parent="BookTexture"]
+material = SubResource("ShaderMaterial_t3y0h")
+layout_mode = 0
+offset_left = 135.0
+offset_top = 14.0
+offset_right = 1087.0
+offset_bottom = 1116.0
+scale = Vector2(1.73659, 1)
+texture = ExtResource("3_ulmyv")
+expand_mode = 1
+
+[node name="CanvasGroup" type="CanvasGroup" parent="BookTexture"]
+material = SubResource("ShaderMaterial_nngmp")
+position = Vector2(175, 14)
+
+[node name="Text" type="Label" parent="BookTexture/CanvasGroup"]
+material = SubResource("ShaderMaterial_g02q5")
+offset_left = 22.9999
+offset_top = 53.0
+offset_right = 762.0
+offset_bottom = 1059.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 40
+text = "hdashdkjashdkjashdkjjaskldhalksdjlaksjdlkasd"
+autowrap_mode = 3
+language = "en_AS"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hn2vr")
+}
+
+[node name="Button" type="Button" parent="."]
+offset_left = 513.0
+offset_top = 707.0
+offset_right = 833.0
+offset_bottom = 867.0
+theme_override_font_sizes/font_size = 40
+text = "next page"
+
+[connection signal="pressed" from="Button" to="." method="NextPage"]

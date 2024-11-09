@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://buinboi86snet"]
+
+[ext_resource type="Script" path="res://effect/Julius/terminal/Terminal.cs" id="1_f6hq2"]
+[ext_resource type="PackedScene" uid="uid://b5qqrrag2fj62" path="res://effect/trail.tscn" id="2_54mjp"]
+
+[sub_resource type="Animation" id="Animation_srtr0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_7libt"]
+resource_name = "terminal"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.466667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f7hc8"]
+_data = {
+"RESET": SubResource("Animation_srtr0"),
+"terminal": SubResource("Animation_7libt")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_cq3mi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 400, 1, 0, 0, 0, 0, -300, 0)
+}
+point_count = 2
+
+[node name="Terminal" type="Node2D"]
+script = ExtResource("1_f6hq2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_f7hc8")
+}
+autoplay = "terminal"
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_cq3mi")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-100.003, 0.28571)
+rotation = -3.14016
+progress = 500.001
+
+[node name="Line2D" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_54mjp")]
+target = NodePath("../Path2D/PathFollow2D")

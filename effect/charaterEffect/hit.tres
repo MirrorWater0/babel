@@ -1,0 +1,61 @@
+[gd_resource type="ParticleProcessMaterial" load_steps=11 format=3 uid="uid://bsaytjvol1pkc"]
+
+[sub_resource type="Curve" id="Curve_ahx00"]
+_data = [Vector2(0, 0.054945), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0a6kk"]
+curve = SubResource("Curve_ahx00")
+
+[sub_resource type="Curve" id="Curve_w7qek"]
+min_value = -10.0
+_data = [Vector2(0, -7.46154), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_pf0lj"]
+curve_y = SubResource("Curve_w7qek")
+
+[sub_resource type="Curve" id="Curve_p1s2n"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.131868), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fbo3g"]
+curve = SubResource("Curve_p1s2n")
+
+[sub_resource type="Curve" id="Curve_6q4r3"]
+_data = [Vector2(0, 0.175824), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_8ws1s"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_a1kgq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_hmaty"]
+curve_x = SubResource("Curve_6q4r3")
+curve_y = SubResource("Curve_8ws1s")
+curve_z = SubResource("Curve_a1kgq")
+
+[resource]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(700, 600, 1)
+angle_min = -20.0
+angle_max = 20.0
+direction = Vector3(0, 0, 0)
+spread = 0.0
+directional_velocity_min = 0.999984
+directional_velocity_max = 0.999984
+directional_velocity_curve = SubResource("CurveXYZTexture_pf0lj")
+radial_velocity_min = 19.63
+radial_velocity_max = 1000.0
+radial_velocity_curve = SubResource("CurveTexture_fbo3g")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.7
+scale_curve = SubResource("CurveXYZTexture_hmaty")
+scale_over_velocity_max = 50.0
+alpha_curve = SubResource("CurveTexture_0a6kk")

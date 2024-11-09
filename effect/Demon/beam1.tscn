@@ -1,0 +1,123 @@
+[gd_scene load_steps=14 format=3 uid="uid://sn7nrugj0if4"]
+
+[ext_resource type="Script" path="res://effect/Demon/Beam1.cs" id="1_26a1c"]
+[ext_resource type="Shader" path="res://vortex1.gdshader" id="2_wcou0"]
+[ext_resource type="Texture2D" uid="uid://c2cdqgqaqkbhr" path="res://asset/skillEffectIcon/particle2.png" id="3_y63pl"]
+[ext_resource type="Shader" path="res://beam2.gdshader" id="4_ov4kq"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rjqom"]
+frequency = 0.0041
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_b617l"]
+noise = SubResource("FastNoiseLite_rjqom")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dukib"]
+shader = ExtResource("2_wcou0")
+shader_parameter/offset = 19.61
+shader_parameter/mask = 0.46
+shader_parameter/color = Vector4(1, 0, 0, 0.8)
+shader_parameter/speed = 0.6
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_b617l")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jjwwk"]
+frequency = 0.0002
+offset = Vector3(297.88, -553.79, -42.56)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6yj2c"]
+height = 500
+seamless = true
+seamless_blend_skirt = 1.0
+noise = SubResource("FastNoiseLite_jjwwk")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1qr4f"]
+shader = ExtResource("4_ov4kq")
+shader_parameter/backValue = 50.0
+shader_parameter/speed = 5.5
+shader_parameter/alpha = 1.0
+shader_parameter/color = Vector3(0.7, 0, 0)
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_6yj2c")
+
+[sub_resource type="Animation" id="Animation_pj055"]
+resource_name = "beam1"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect2/beam:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.666667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect2:material:shader_parameter/mask")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.46, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_7ptco"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect2/beam:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ColorRect2:material:shader_parameter/mask")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.46]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mq2b8"]
+_data = {
+"RESET": SubResource("Animation_7ptco"),
+"beam1": SubResource("Animation_pj055")
+}
+
+[node name="beam1" type="Node2D"]
+script = ExtResource("1_26a1c")
+
+[node name="ColorRect2" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_dukib")
+offset_left = -272.0
+offset_top = -518.0
+offset_right = 232.0
+offset_bottom = 511.0
+texture = ExtResource("3_y63pl")
+expand_mode = 1
+
+[node name="beam" type="ColorRect" parent="ColorRect2"]
+material = SubResource("ShaderMaterial_1qr4f")
+offset_left = -2762.0
+offset_top = -131.0
+offset_right = 214.0
+offset_bottom = 1134.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mq2b8")
+}
+autoplay = "beam1"

@@ -1,0 +1,189 @@
+[gd_scene load_steps=11 format=3 uid="uid://dwtbm6an6ecot"]
+
+[ext_resource type="Texture2D" uid="uid://cg3tmtcgd5xb8" path="res://asset/stateIcon/buff_power.png" id="1_21h72"]
+[ext_resource type="Shader" path="res://shader/burn.gdshader" id="2_3bvc8"]
+[ext_resource type="Texture2D" uid="uid://d12mk4jh884td" path="res://asset/stateIcon/intensify.png" id="3_n7dxt"]
+
+[sub_resource type="Animation" id="Animation_83ar6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("actionLabel/attackLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-160, -1113.33)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("actionLabel/Intensify:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-103.75, -916.313)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("actionLabel/Intensify:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("actionLabel/attackLabel:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_dy3ok"]
+resource_name = "attack"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("actionLabel/attackLabel:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-160, -1113.33), Vector2(-160, -1000)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("actionLabel/Intensify:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("actionLabel/attackLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_3yyje"]
+resource_name = "intensify"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("actionLabel/Intensify:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-103.75, -916.313), Vector2(-103.75, -800)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("actionLabel/Intensify:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("actionLabel/attackLabel:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ly0hh"]
+_data = {
+"RESET": SubResource("Animation_83ar6"),
+"attack": SubResource("Animation_dy3ok"),
+"intensify": SubResource("Animation_3yyje")
+}
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xkxd7"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vmcki"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_xkxd7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lcueo"]
+shader = ExtResource("2_3bvc8")
+shader_parameter/alpha = 0.3
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_vmcki")
+
+[node name="actionLabel" type="Node2D"]
+
+[node name="attackLabel" type="Label" parent="."]
+anchors_preset = -1
+anchor_top = 0.884
+anchor_bottom = 0.884
+offset_left = -160.0
+offset_top = -1113.33
+offset_right = 68.0
+offset_bottom = -840.331
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 160
+text = "10"
+horizontal_alignment = 1
+
+[node name="BuffPower" type="Sprite2D" parent="attackLabel"]
+position = Vector2(-66.6667, 86.6667)
+scale = Vector2(10, 10)
+texture = ExtResource("1_21h72")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_ly0hh")
+}
+
+[node name="Intensify" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_lcueo")
+position = Vector2(-103.75, -916.313)
+scale = Vector2(13.7083, 10.0127)
+texture = ExtResource("3_n7dxt")

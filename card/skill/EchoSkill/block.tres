@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://cjfeyjc172sul"]
+
+[ext_resource type="Script" path="res://card/skill/Skill.cs" id="1_3auqh"]
+[ext_resource type="Texture2D" uid="uid://c33bb76rx07tp" path="res://asset/card/cardIcon/defend.png" id="1_067ro"]
+[ext_resource type="PackedScene" uid="uid://dybl7afrkanf2" path="res://effect/BaseSkillEffect/block/block.tscn" id="1_b0gmr"]
+
+[resource]
+script = ExtResource("1_3auqh")
+name = "block"
+charaterName = "Echo"
+cost = 1
+cardIcon = ExtResource("1_067ro")
+releaseArea = 0
+once = false
+EffectScene = ExtResource("1_b0gmr")
+description = "你将本能的做出防御，获得10点格挡"

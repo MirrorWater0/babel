@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqite8d001q5"]
+
+[ext_resource type="Texture2D" uid="uid://d3poh6qnamnrm" path="res://asset/interface/开始.png" id="1_66yqu"]
+[ext_resource type="Shader" path="res://Game/interface/button.gdshader" id="2_a3f7j"]
+[ext_resource type="Script" path="res://Game/interface/InterfaceButton.cs" id="3_3nw3n"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j5dyp"]
+resource_local_to_scene = true
+shader = ExtResource("2_a3f7j")
+shader_parameter/hover = false
+shader_parameter/process = null
+shader_parameter/pressed = false
+
+[sub_resource type="Theme" id="Theme_6d1qg"]
+
+[node name="interface" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_66yqu")
+
+[node name="Button" type="Button" parent="."]
+material = SubResource("ShaderMaterial_j5dyp")
+custom_minimum_size = Vector2(0, 20)
+offset_left = 657.0
+offset_top = 343.0
+offset_right = 1331.0
+offset_bottom = 409.0
+theme = SubResource("Theme_6d1qg")
+script = ExtResource("3_3nw3n")
+
+[node name="Label" type="Label" parent="Button"]
+layout_mode = 0
+offset_left = 85.0
+offset_top = -5.0
+offset_right = 569.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0.926747, 0.968625, 1, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 50
+text = "start
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="button_down" from="Button" to="Button" method="pressed"]
+[connection signal="button_up" from="Button" to="Button" method="released"]

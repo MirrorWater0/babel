@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://bytkc17do6gsx"]
+
+[ext_resource type="Script" path="res://ui_script/suspension/Cardtip.cs" id="2_5ehqq"]
+[ext_resource type="PackedScene" uid="uid://b5qqrrag2fj62" path="res://effect/trail.tscn" id="3_sri8m"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t6k0c"]
+font_size = 20
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Curve2D" id="Curve2D_antwg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 235, 90, 0, 0, 0, 0, 101, 90, 0, 0, 0, 0, 103, 325, 0, 0, 0, 0, 235, 327, 0, 0, 0, 0, 235, 90)
+}
+point_count = 5
+
+[sub_resource type="Animation" id="Animation_paugn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_humqh"]
+resource_name = "tip"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2jypb"]
+_data = {
+"RESET": SubResource("Animation_paugn"),
+"tip": SubResource("Animation_humqh")
+}
+
+[node name="Cardtip" type="TextureRect" node_paths=PackedStringArray("description")]
+z_index = 1
+custom_minimum_size = Vector2(138, 240)
+offset_left = 603.0
+offset_top = 323.0
+offset_right = 741.0
+offset_bottom = 563.0
+mouse_filter = 0
+expand_mode = 1
+script = ExtResource("2_5ehqq")
+description = NodePath("Description")
+
+[node name="Description" type="Label" parent="."]
+custom_minimum_size = Vector2(120, 220)
+layout_mode = 0
+offset_left = 5.0
+offset_top = 7.0
+offset_right = 130.0
+offset_bottom = 230.0
+theme_override_font_sizes/font_size = 0
+text = "descr"
+label_settings = SubResource("LabelSettings_t6k0c")
+autowrap_mode = 3
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-100, -88)
+curve = SubResource("Curve2D_antwg")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(235, 90)
+rotation = 3.14159
+
+[node name="Node2D" type="Node2D" parent="Path2D/PathFollow2D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2jypb")
+}
+autoplay = "tip"
+
+[node name="Line2D" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_sri8m")]
+width = 3.0
+target = NodePath("../Path2D/PathFollow2D/Node2D")

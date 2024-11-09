@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://blkyorj0s3tqb"]
+
+[ext_resource type="Shader" path="res://shader/spaceRings.gdshader" id="1_dqyvu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_afoyg"]
+shader = ExtResource("1_dqyvu")
+
+[node name="spaceRing" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_afoyg")
+offset_left = 561.0
+offset_top = 116.0
+offset_right = 1115.0
+offset_bottom = 846.0
+color = Color(0, 0, 0, 1)

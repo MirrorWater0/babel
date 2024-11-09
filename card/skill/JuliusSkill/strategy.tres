@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://dppr3uk3rbl3e"]
+
+[ext_resource type="Texture2D" uid="uid://c0rnhdcraeqvj" path="res://asset/card/cardIcon/Julius/strategy.png" id="1_4pcso"]
+[ext_resource type="Script" path="res://card/skill/Skill.cs" id="1_5bcwk"]
+[ext_resource type="PackedScene" uid="uid://clsum31gq4qgm" path="res://effect/Julius/strategy/strategy.tscn" id="1_6hivm"]
+
+[resource]
+script = ExtResource("1_5bcwk")
+name = "strategy"
+charaterName = "Julius"
+cost = 1
+cardIcon = ExtResource("1_4pcso")
+releaseArea = 0
+once = false
+EffectScene = ExtResource("1_6hivm")
+description = ""

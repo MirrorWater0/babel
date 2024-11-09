@@ -1,0 +1,106 @@
+[gd_scene load_steps=9 format=3 uid="uid://cie54y415ic4p"]
+
+[ext_resource type="Script" path="res://effect/BaseSkillEffect/attack/Attack.cs" id="1_w40us"]
+[ext_resource type="PackedScene" uid="uid://b5qqrrag2fj62" path="res://effect/trail.tscn" id="2_kjuhm"]
+[ext_resource type="Texture2D" uid="uid://v2l7fd6snpvn" path="res://asset/particle1.png" id="3_kw06d"]
+[ext_resource type="AudioStream" uid="uid://bblegqm5l1yfl" path="res://asset/audio/剑快速挥舞.wav" id="4_5bw87"]
+
+[sub_resource type="Animation" id="Animation_m86ta"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_lyii1"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_convh"]
+_data = {
+"RESET": SubResource("Animation_m86ta"),
+"attack": SubResource("Animation_lyii1")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_days8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 4, 434, 0, 0, 0, 0, -281, 213, 0, 0, 0, 0, -415, 32, 0, 0, 0, 0, -222, 103)
+}
+point_count = 4
+
+[node name="attack" type="Node2D"]
+position = Vector2(695, 627)
+script = ExtResource("1_w40us")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_convh")
+}
+autoplay = "attack"
+
+[node name="Line2D" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_kjuhm")]
+target = NodePath("../Path2D/PathFollow2D/ball")
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(278, -159)
+curve = SubResource("Curve2D_days8")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-222, 103)
+rotation = 0.35251
+progress = 791.496
+
+[node name="ball" type="Sprite2D" parent="Path2D/PathFollow2D"]
+visible = false
+
+[node name="ball" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_kw06d")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_5bw87")
+volume_db = -10.0

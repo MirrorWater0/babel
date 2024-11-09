@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://wwwhmm3rt8pb"]
+
+[ext_resource type="Script" path="res://card/skill/Skill.cs" id="1_6rg5u"]
+[ext_resource type="Texture2D" uid="uid://d12pb8ugo01x4" path="res://asset/card/cardIcon/Echo/multiple attack.png" id="1_61e8h"]
+[ext_resource type="PackedScene" uid="uid://ec2ym8lwflkd" path="res://effect/Echo/DanceOfSword/DanceOfSword.tscn" id="1_j1mcp"]
+
+[resource]
+script = ExtResource("1_6rg5u")
+name = "DanceOfSword"
+charaterName = "Echo"
+cost = 3
+cardIcon = ExtResource("1_61e8h")
+releaseArea = 1
+once = false
+EffectScene = ExtResource("1_j1mcp")
+description = "刀光随风闪烁，剑刃移形换影。
+造成4段基础10点伤害，力量最后一段伤害的影响为2次方，减少自身0.4的力量"

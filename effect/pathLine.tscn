@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://5ydjacosor24"]
+
+[ext_resource type="Script" path="res://effect/BaseSkillEffect/attack/Line.cs" id="1_bmxrt"]
+[ext_resource type="Texture2D" uid="uid://v2l7fd6snpvn" path="res://asset/particle1.png" id="2_21fcy"]
+
+[sub_resource type="Curve2D" id="Curve2D_hlvof"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 335, -676, 117.04, -43.4182, -117.04, 43.4182, 119, -227, 158.571, -124.591, -158.571, 124.591, -200, -112, 0, 0, -158.571, 124.591, -520, 22)
+}
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_hkm13"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.268421, 0.318681), 1.39194, 1.39194, 0, 0, Vector2(0.547368, 0.461538), 0.0, 0.0, 0, 0, Vector2(0.8, 0.340659), -0.835165, -0.835165, 0, 0, Vector2(1, 0.021978), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[node name="Path2D" type="Path2D"]
+position = Vector2(181, 190)
+curve = SubResource("Curve2D_hlvof")
+
+[node name="Line2D" type="Line2D" parent="."]
+position = Vector2(-181, -190)
+width_curve = SubResource("Curve_hkm13")
+script = ExtResource("1_bmxrt")
+metadata/_edit_lock_ = true
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2(335, -676)
+rotation = 2.01918
+
+[node name="ball" type="Sprite2D" parent="PathFollow2D"]
+visible = false
+position = Vector2(1.82942, -2.57941)
+rotation = -2.20293
+texture = ExtResource("2_21fcy")

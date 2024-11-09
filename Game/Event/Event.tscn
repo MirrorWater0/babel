@@ -1,0 +1,268 @@
+[gd_scene load_steps=22 format=3 uid="uid://djofp0tohlpbf"]
+
+[ext_resource type="Script" path="res://Game/Event/Event.cs" id="1_rux0i"]
+[ext_resource type="Texture2D" uid="uid://b6bl4g7wduetb" path="res://asset/ui/board_stone.png" id="2_tgkdu"]
+[ext_resource type="Texture2D" uid="uid://c855loajk1rru" path="res://asset/ui/箭头.png" id="3_y3874"]
+[ext_resource type="Texture2D" uid="uid://bt5b6tmnxs15q" path="res://asset/ui/箭头press.png" id="4_x1t26"]
+[ext_resource type="Shader" path="res://Game/Event/Text.gdshader" id="5_k4kwe"]
+[ext_resource type="Texture2D" uid="uid://cicr6aqgco7o3" path="res://asset/charater/charaterIcon/iconEecho.jpg" id="6_8wonw"]
+[ext_resource type="Script" path="res://Game/Event/ChoseButton.cs" id="6_kvy4r"]
+[ext_resource type="Script" path="res://Game/Event/dynamicButton.cs" id="7_5yjal"]
+[ext_resource type="AudioStream" uid="uid://d3pw11qqgvfc2" path="res://asset/audio/bgm/title.ogg" id="9_lv6xo"]
+[ext_resource type="AudioStream" uid="uid://dgkiuy2qejcq1" path="res://asset/audio/交互.mp3" id="10_kgnvn"]
+[ext_resource type="Texture2D" uid="uid://b5cndgnmralnv" path="res://asset/ui/book.png" id="10_o4w8i"]
+[ext_resource type="Script" path="res://Game/battle/BookButton.cs" id="11_krf31"]
+[ext_resource type="Texture2D" uid="uid://dooghfdfntqhf" path="res://asset/item/SoulDebris.png" id="12_yfwbo"]
+[ext_resource type="Script" path="res://item/SoulDebris.cs" id="13_3usur"]
+[ext_resource type="FontFile" uid="uid://hi1dr38e6in8" path="res://asset/front/CormorantSC-Bold.ttf" id="14_xalw8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4cuiv"]
+shader = ExtResource("5_k4kwe")
+
+[sub_resource type="LabelSettings" id="LabelSettings_p5i57"]
+font_size = 40
+
+[sub_resource type="Theme" id="Theme_8gg3e"]
+
+[sub_resource type="Theme" id="Theme_0igxq"]
+
+[sub_resource type="Shader" id="Shader_uk4oh"]
+code = "shader_type canvas_item;
+
+uniform bool pressed;
+uniform bool Hover;
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	vec2 uv = UV;
+	vec4 tex_color = texture(TEXTURE,uv);
+
+
+	if(Hover){
+		COLOR = tex_color + vec4(0.0,1.0,0.5,tex_color.a* 0.3) *(1.0 -  step(tex_color.b,0.5));
+	}
+	if(pressed){
+		COLOR = (tex_color - vec4(0.3,0.3,0.2,0.0) )* (1.0 -  step(tex_color.b,0.5)) + tex_color * step(tex_color.b,0.5);
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vio6o"]
+shader = SubResource("Shader_uk4oh")
+shader_parameter/pressed = false
+shader_parameter/Hover = false
+
+[node name="Event" type="Node2D"]
+script = ExtResource("1_rux0i")
+
+[node name="background" type="TextureRect" parent="."]
+offset_right = 1927.0
+offset_bottom = 1076.0
+texture = ExtResource("2_tgkdu")
+
+[node name="rightarrow" type="TextureButton" parent="."]
+self_modulate = Color(0.564962, 0.564962, 0.564962, 1)
+offset_left = 1849.0
+offset_top = 400.0
+offset_right = 2169.0
+offset_bottom = 580.0
+rotation = 1.5708
+texture_normal = ExtResource("3_y3874")
+texture_pressed = ExtResource("4_x1t26")
+
+[node name="leftarrow" type="TextureButton" parent="."]
+self_modulate = Color(0.564962, 0.564962, 0.564962, 1)
+offset_left = 60.0
+offset_top = 705.0
+offset_right = 380.0
+offset_bottom = 885.0
+rotation = -1.5708
+texture_normal = ExtResource("3_y3874")
+texture_pressed = ExtResource("4_x1t26")
+
+[node name="Text" type="Label" parent="."]
+material = SubResource("ShaderMaterial_4cuiv")
+offset_left = 231.0
+offset_top = 251.0
+offset_right = 1680.0
+offset_bottom = 969.0
+text = "text"
+label_settings = SubResource("LabelSettings_p5i57")
+
+[node name="chose" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 20)
+offset_left = 566.0
+offset_top = 771.0
+offset_right = 1305.0
+offset_bottom = 990.0
+theme = SubResource("Theme_8gg3e")
+theme_override_constants/separation = 15
+
+[node name="chose1" type="Button" parent="chose"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+tooltip_text = "well"
+theme_override_font_sizes/font_size = 40
+text = "chose1"
+script = ExtResource("6_kvy4r")
+
+[node name="chose2" type="Button" parent="chose"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+tooltip_text = "chose2"
+theme_override_font_sizes/font_size = 40
+text = "chose2"
+script = ExtResource("6_kvy4r")
+
+[node name="chose3" type="Button" parent="chose"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+tooltip_text = "chose3"
+theme_override_font_sizes/font_size = 40
+text = "chose3"
+script = ExtResource("6_kvy4r")
+
+[node name="giveControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="black" type="ColorRect" parent="giveControl"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.18, 0.18, 0.18, 0.714)
+
+[node name="give" type="HBoxContainer" parent="giveControl"]
+z_index = 2
+layout_mode = 0
+offset_left = 708.0
+offset_top = 428.0
+offset_right = 1108.0
+offset_bottom = 658.0
+theme = SubResource("Theme_0igxq")
+theme_override_constants/separation = 100
+
+[node name="charater1" type="TextureButton" parent="giveControl/give"]
+layout_mode = 2
+mouse_filter = 1
+toggle_mode = true
+texture_normal = ExtResource("6_8wonw")
+script = ExtResource("7_5yjal")
+
+[node name="shadow" type="ColorRect" parent="giveControl/give/charater1"]
+z_index = -1
+layout_mode = 0
+offset_left = -2.0
+offset_top = -1.0
+offset_right = 153.0
+offset_bottom = 233.0
+mouse_filter = 1
+color = Color(0.081, 0.081, 0.081, 0.887)
+
+[node name="charater2" type="TextureButton" parent="giveControl/give"]
+layout_mode = 2
+mouse_filter = 1
+toggle_mode = true
+texture_normal = ExtResource("6_8wonw")
+script = ExtResource("7_5yjal")
+
+[node name="shadow" type="ColorRect" parent="giveControl/give/charater2"]
+z_index = -1
+layout_mode = 0
+offset_left = -4.0
+offset_right = 151.0
+offset_bottom = 234.0
+mouse_filter = 1
+color = Color(0.081, 0.081, 0.081, 0.887)
+
+[node name="Label" type="Label" parent="giveControl"]
+layout_mode = 0
+offset_left = 793.0
+offset_top = 304.0
+offset_right = 1033.0
+offset_bottom = 359.0
+theme_override_font_sizes/font_size = 40
+text = "选择一名角色"
+
+[node name="continue" type="Button" parent="."]
+offset_left = 826.0
+offset_top = 840.0
+offset_right = 1038.0
+offset_bottom = 914.0
+theme_override_font_sizes/font_size = 40
+text = "continue
+"
+
+[node name="AudioManager" type="Node" parent="."]
+
+[node name="bgm" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("9_lv6xo")
+autoplay = true
+parameters/looping = true
+
+[node name="intereact" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("10_kgnvn")
+max_polyphony = 3
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="bookButton" type="TextureButton" parent="UI" node_paths=PackedStringArray("bookDisplay")]
+z_index = 3
+material = SubResource("ShaderMaterial_vio6o")
+offset_left = 1569.0
+offset_top = 5.0
+offset_right = 1645.0
+offset_bottom = 53.0
+texture_normal = ExtResource("10_o4w8i")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("11_krf31")
+bookDisplay = NodePath("../bookdisplay")
+
+[node name="SoulDebris" type="TextureRect" parent="UI"]
+self_modulate = Color(1, 1.642, 1.622, 1)
+offset_left = 131.0
+offset_top = -3.0
+offset_right = 200.0
+offset_bottom = 66.0
+texture = ExtResource("12_yfwbo")
+expand_mode = 1
+script = ExtResource("13_3usur")
+
+[node name="count" type="Label" parent="UI/SoulDebris"]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 13.0
+offset_right = 113.0
+offset_bottom = 62.0
+theme_override_colors/font_color = Color(0.82, 0.874, 1, 1)
+theme_override_constants/outline_size = 7
+theme_override_fonts/font = ExtResource("14_xalw8")
+theme_override_font_sizes/font_size = 40
+text = "10"
+
+[node name="bookdisplay" type="TextureRect" parent="UI"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Relic" type="ScrollContainer" parent="UI"]
+offset_left = 91.0
+offset_top = 83.0
+offset_right = 1828.0
+offset_bottom = 195.0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="UI/Relic"]
+layout_mode = 2
+
+[connection signal="pressed" from="rightarrow" to="." method="NextPage"]
+[connection signal="pressed" from="leftarrow" to="." method="PreviousPage"]
+[connection signal="pressed" from="chose/chose1" to="." method="chose1"]
+[connection signal="pressed" from="chose/chose2" to="." method="chose2"]
+[connection signal="pressed" from="chose/chose3" to="." method="chose3"]
+[connection signal="pressed" from="giveControl/give/charater1" to="." method="Give1"]
+[connection signal="pressed" from="giveControl/give/charater2" to="." method="Give2"]
+[connection signal="pressed" from="continue" to="." method="continueNext"]

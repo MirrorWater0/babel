@@ -1,0 +1,308 @@
+[gd_scene load_steps=30 format=3 uid="uid://j2a53owpff4r"]
+
+[ext_resource type="Texture2D" uid="uid://c2tbudqeupjfq" path="res://asset/charater/echo.png" id="1_qkm8d"]
+[ext_resource type="Shader" path="res://charater/enimy/charater.gdshader" id="1_rwbtt"]
+[ext_resource type="Script" path="res://charater/player/Echo/Echo.cs" id="2_c4ff0"]
+[ext_resource type="Texture2D" uid="uid://c2yhrh72qdeei" path="res://asset/lifebar.png" id="4_geile"]
+[ext_resource type="Texture2D" uid="uid://d1afbi53jqe8w" path="res://asset/life.png" id="5_sh5lr"]
+[ext_resource type="Texture2D" uid="uid://v2l7fd6snpvn" path="res://asset/particle1.png" id="6_1pry2"]
+[ext_resource type="Texture2D" uid="uid://bhx3hnr8suj5k" path="res://asset/stateIcon/buff_block.png" id="7_xqxdx"]
+[ext_resource type="Texture2D" uid="uid://cg3tmtcgd5xb8" path="res://asset/stateIcon/buff_power.png" id="8_yy87k"]
+[ext_resource type="Texture2D" uid="uid://eokyp8ir7wi6" path="res://asset/stateIcon/rigidity.png" id="9_2cax2"]
+[ext_resource type="AudioStream" uid="uid://bng0tdi7jtatc" path="res://asset/audio/矛头击中铠甲.wav" id="10_82rnb"]
+[ext_resource type="AudioStream" uid="uid://b74ahx6efenj" path="res://asset/audio/刀刺穿身体的声音.wav" id="11_2vwxt"]
+[ext_resource type="AudioStream" uid="uid://6eaigq7qaxld" path="res://asset/audio/金属碎裂声.mp3" id="11_8gp2l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v3foi"]
+resource_local_to_scene = true
+shader = ExtResource("1_rwbtt")
+shader_parameter/hit = false
+shader_parameter/progress = 0.0
+shader_parameter/base_direction = Vector2(0, 0)
+shader_parameter/pixel_scale = 1.0
+shader_parameter/base_dir_rand_factor = 0.2
+shader_parameter/regionEnabled = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vm5u4"]
+size = Vector2(950, 1994.51)
+
+[sub_resource type="Animation" id="Animation_rmy2f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_7tseo"]
+resource_name = "attack"
+
+[sub_resource type="Animation" id="Animation_phtxk"]
+resource_name = "hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/hit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ethnj"]
+_data = {
+"RESET": SubResource("Animation_rmy2f"),
+"attack": SubResource("Animation_7tseo"),
+"hit": SubResource("Animation_phtxk")
+}
+
+[sub_resource type="Shader" id="Shader_e4qgi"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	// Called for every pixel the material is visible on.
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2r568"]
+shader = SubResource("Shader_e4qgi")
+
+[sub_resource type="Gradient" id="Gradient_ds0ja"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.0519481, 0.512987, 0.922078, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.349591, 0.349591, 0.349591, 0.217317, 0.169, 0.169, 0.169, 0, 0.376369, 0.376369, 0.376369, 0.249541, 0.552941, 1, 1, 0.643137)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2uawe"]
+gradient = SubResource("Gradient_ds0ja")
+use_hdr = true
+fill = 2
+fill_from = Vector2(0.5, 0.490826)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Curve" id="Curve_5frkw"]
+_data = [Vector2(0, 0.054945), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6wq1g"]
+curve = SubResource("Curve_5frkw")
+
+[sub_resource type="Curve" id="Curve_4un36"]
+min_value = -10.0
+_data = [Vector2(0, -7.46154), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_4hmmj"]
+curve_y = SubResource("Curve_4un36")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7wwcl"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(700, 600, 1)
+angle_min = -20.0
+angle_max = 20.0
+direction = Vector3(0, -1, 0)
+spread = 52.584
+initial_velocity_min = 800.0
+initial_velocity_max = 800.0
+directional_velocity_min = 9.99998
+directional_velocity_max = 40.0
+directional_velocity_curve = SubResource("CurveXYZTexture_4hmmj")
+orbit_velocity_min = -10.0
+orbit_velocity_max = 10.0
+radial_velocity_min = -100.0
+radial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+scale_over_velocity_max = 50.0
+alpha_curve = SubResource("CurveTexture_6wq1g")
+
+[sub_resource type="Shader" id="Shader_uw1d5"]
+code = "shader_type canvas_item;
+
+uniform bool hasblock;
+uniform vec4 color;
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	vec2 uv = UV;
+	vec4 tex_color = texture(TEXTURE,uv);
+	COLOR.a = COLOR.a*(1.0 - step(0.6,tex_color.r));
+	if(hasblock){
+		COLOR = vec4(0.3,0.9,0.95,COLOR.a);
+	}
+	
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jve1q"]
+resource_local_to_scene = true
+shader = SubResource("Shader_uw1d5")
+shader_parameter/hasblock = null
+shader_parameter/color = Vector4(1, 1, 1, 0)
+
+[node name="Echo" type="Sprite2D"]
+light_mask = 2
+material = SubResource("ShaderMaterial_v3foi")
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_qkm8d")
+script = ExtResource("2_c4ff0")
+
+[node name="detector" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detector"]
+visible = false
+position = Vector2(12.5, -13.0645)
+shape = SubResource("RectangleShape2D_vm5u4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ethnj")
+}
+
+[node name="hoverTex" type="TextureRect" parent="."]
+visible = false
+show_behind_parent = true
+material = SubResource("ShaderMaterial_2r568")
+offset_left = -519.0
+offset_top = -925.0
+offset_right = 625.0
+offset_bottom = 938.0
+pivot_offset = Vector2(286, 465.75)
+texture = SubResource("GradientTexture2D_2uawe")
+
+[node name="particle" type="Node2D" parent="."]
+
+[node name="hover" type="GPUParticles2D" parent="particle"]
+self_modulate = Color(1, 14.054, 18.379, 0.022)
+position = Vector2(-18.75, 87.5)
+emitting = false
+amount = 60
+process_material = SubResource("ParticleProcessMaterial_7wwcl")
+texture = ExtResource("6_1pry2")
+lifetime = 5.0
+
+[node name="block" type="Label" parent="."]
+anchors_preset = -1
+anchor_top = 0.884
+anchor_bottom = 0.884
+offset_left = -633.333
+offset_top = -783.947
+offset_right = -405.333
+offset_bottom = -510.947
+pivot_offset = Vector2(114, 136)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 160
+text = "10"
+horizontal_alignment = 1
+
+[node name="BuffBlock" type="Sprite2D" parent="block"]
+show_behind_parent = true
+position = Vector2(126.667, 113.333)
+scale = Vector2(10.1667, 8.64168)
+texture = ExtResource("7_xqxdx")
+
+[node name="lifeline" type="TextureProgressBar" parent="."]
+material = SubResource("ShaderMaterial_jve1q")
+offset_left = -420.0
+offset_top = 960.0
+offset_right = 780.0
+offset_bottom = 1067.0
+value = 20.0
+nine_patch_stretch = true
+texture_under = ExtResource("4_geile")
+texture_progress = ExtResource("5_sh5lr")
+
+[node name="life" type="Label" parent="lifeline"]
+layout_mode = 0
+offset_left = 460.0
+offset_top = -53.3333
+offset_right = 686.0
+offset_bottom = 151.667
+theme_override_font_sizes/font_size = 150
+text = "10"
+
+[node name="buff" type="Node2D" parent="."]
+
+[node name="power" type="Label" parent="buff"]
+anchors_preset = -1
+anchor_top = 0.884
+anchor_bottom = 0.884
+offset_left = -400.0
+offset_top = 1073.33
+offset_right = -172.0
+offset_bottom = 1346.33
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 160
+text = "10"
+horizontal_alignment = 1
+
+[node name="Buffpower" type="Sprite2D" parent="buff/power"]
+show_behind_parent = true
+position = Vector2(-40, 100)
+scale = Vector2(10.1667, 9.98751)
+texture = ExtResource("8_yy87k")
+
+[node name="rigidity" type="Label" parent="buff"]
+anchors_preset = -1
+anchor_top = 0.884
+anchor_bottom = 0.884
+offset_top = 1086.67
+offset_right = 228.0
+offset_bottom = 1359.67
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 30
+theme_override_font_sizes/font_size = 160
+text = "10"
+horizontal_alignment = 1
+
+[node name="Buffrigidity" type="Sprite2D" parent="buff/rigidity"]
+show_behind_parent = true
+position = Vector2(-60, 118.584)
+scale = Vector2(3, 2.77854)
+texture = ExtResource("9_2cax2")
+
+[node name="AudioManager" type="Node" parent="."]
+
+[node name="HitBlock" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("10_82rnb")
+max_polyphony = 7
+
+[node name="BlockBreak" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("11_8gp2l")
+pitch_scale = 1.76
+max_polyphony = 6
+
+[node name="Hit" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("11_2vwxt")
+max_polyphony = 8

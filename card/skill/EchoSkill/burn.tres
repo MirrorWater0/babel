@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://cg8728qhnmb33"]
+
+[ext_resource type="Texture2D" uid="uid://dhci3akvp3v17" path="res://asset/card/cardIcon/f1.png" id="1_cqdrs"]
+[ext_resource type="Script" path="res://card/skill/Skill.cs" id="1_dt2nj"]
+[ext_resource type="PackedScene" uid="uid://doyjra72lkmkl" path="res://effect/Echo/burn/burn.tscn" id="1_ns41v"]
+
+[resource]
+script = ExtResource("1_dt2nj")
+name = "burn"
+charaterName = "Echo"
+cost = 1
+cardIcon = ExtResource("1_cqdrs")
+releaseArea = 0
+once = true
+EffectScene = ExtResource("1_ns41v")
+description = "对生命的热恋使你浑身颤抖，趋近于毁灭。
+增加0.3的力量"

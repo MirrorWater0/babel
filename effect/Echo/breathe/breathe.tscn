@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://dwprmeyes78v6"]
+
+[ext_resource type="Script" path="res://effect/Echo/breathe/Breathe.cs" id="1_ujlnw"]
+[ext_resource type="Shader" path="res://shader/line.gdshader" id="2_10hin"]
+
+[sub_resource type="Animation" id="Animation_e3liv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_s26i1"]
+resource_name = "breathe"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:material:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.366667, 1.5, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7868k"]
+_data = {
+"RESET": SubResource("Animation_e3liv"),
+"breathe": SubResource("Animation_s26i1")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bbb6i"]
+shader = ExtResource("2_10hin")
+shader_parameter/alpha = 0.0
+
+[node name="Breathe" type="Node2D"]
+script = ExtResource("1_ujlnw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7868k")
+}
+autoplay = "breathe"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_bbb6i")
+offset_left = -422.0
+offset_top = 90.0
+offset_right = 2532.0
+offset_bottom = 755.0

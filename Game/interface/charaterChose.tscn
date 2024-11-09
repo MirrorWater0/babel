@@ -1,0 +1,111 @@
+[gd_scene load_steps=6 format=3 uid="uid://71b27wmwmogy"]
+
+[ext_resource type="Script" path="res://Game/interface/CharaterChose.cs" id="1_o8njr"]
+[ext_resource type="Texture2D" uid="uid://wbt0witr7amg" path="res://asset/illustration/插图.jpg" id="1_pum8p"]
+[ext_resource type="Texture2D" uid="uid://7lgesbdb6cl0" path="res://asset/ui/花纹3.png" id="2_02isq"]
+[ext_resource type="Texture2D" uid="uid://c23ewydsouwws" path="res://asset/ui/botton.svg" id="3_uk7i6"]
+[ext_resource type="Texture2D" uid="uid://c855loajk1rru" path="res://asset/ui/箭头.png" id="5_5dn4y"]
+
+[node name="CharaterChose" type="Node2D"]
+script = ExtResource("1_o8njr")
+
+[node name="illustration" type="TextureRect" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_pum8p")
+
+[node name="花纹3" type="TextureRect" parent="."]
+offset_left = -321.0
+offset_top = -296.0
+offset_right = 959.0
+offset_bottom = 927.0
+scale = Vector2(2.02266, 1.4173)
+texture = ExtResource("2_02isq")
+
+[node name="ChoseButton" type="TextureButton" parent="."]
+offset_left = 559.0
+offset_top = 830.0
+offset_right = 825.0
+offset_bottom = 966.0
+texture_normal = ExtResource("3_uk7i6")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="ChoseButton"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 14.0
+offset_right = 219.0
+offset_bottom = 124.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 80
+text = "选择
+"
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = 1330.0
+offset_top = 311.0
+offset_right = 1370.0
+offset_bottom = 351.0
+
+[node name="Label" type="Label" parent="TextureRect2"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="arrowButton1" type="TextureButton" parent="."]
+offset_left = 1741.0
+offset_top = 444.0
+offset_right = 2061.0
+offset_bottom = 624.0
+rotation = 1.5708
+texture_normal = ExtResource("5_5dn4y")
+
+[node name="arrowButton2" type="TextureButton" parent="."]
+offset_left = 145.0
+offset_top = 764.0
+offset_right = 465.0
+offset_bottom = 944.0
+rotation = -1.5708
+texture_normal = ExtResource("5_5dn4y")
+
+[node name="alreadyChose1" type="Label" parent="."]
+offset_left = 1072.0
+offset_top = 177.0
+offset_right = 1342.0
+offset_bottom = 258.0
+theme_override_font_sizes/font_size = 40
+text = "charater1"
+
+[node name="alreadyChose2" type="Label" parent="."]
+offset_left = 1329.0
+offset_top = 177.0
+offset_right = 1599.0
+offset_bottom = 258.0
+theme_override_font_sizes/font_size = 40
+text = "charater2"
+
+[node name="ConfirmButton" type="TextureButton" parent="."]
+offset_left = 1499.0
+offset_top = 845.0
+offset_right = 1835.0
+offset_bottom = 975.0
+texture_normal = ExtResource("3_uk7i6")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Label" type="Label" parent="ConfirmButton"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 14.0
+offset_right = 290.0
+offset_bottom = 111.0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 60
+text = "comfirm
+"
+
+[connection signal="pressed" from="ChoseButton" to="." method="choseThis"]
+[connection signal="pressed" from="arrowButton1" to="." method="rightArrow"]
+[connection signal="pressed" from="arrowButton2" to="." method="leftArrow"]
+[connection signal="pressed" from="ConfirmButton" to="." method="confirm"]

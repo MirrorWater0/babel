@@ -1,0 +1,39 @@
+[gd_scene load_steps=9 format=3 uid="uid://s6hw4qbqs16l"]
+
+[ext_resource type="Shader" path="res://crosslight.gdshader" id="2_mf57q"]
+[ext_resource type="Texture2D" uid="uid://dhci3akvp3v17" path="res://asset/card/cardIcon/f1.png" id="3_ta2k4"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ksxte"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_srphu"]
+noise = SubResource("FastNoiseLite_ksxte")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mripo"]
+shader = ExtResource("2_mf57q")
+shader_parameter/size = 0.0001
+shader_parameter/destColor = Vector3(0.3, 0.8, 0.6)
+shader_parameter/noise = SubResource("NoiseTexture2D_srphu")
+
+[sub_resource type="Curve" id="Curve_qei0p"]
+_data = [Vector2(0, 0.230769), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ii7jt"]
+curve = SubResource("Curve_qei0p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7x4ek"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(10, 10, 1)
+gravity = Vector3(0, 0, 0)
+scale_min = 0.05
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_ii7jt")
+
+[node name="ShaderExperiment" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+material = SubResource("ShaderMaterial_mripo")
+amount = 5
+process_material = SubResource("ParticleProcessMaterial_7x4ek")
+texture = ExtResource("3_ta2k4")

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c5efso5s4d2sd"]
+
+[ext_resource type="Script" path="res://Game/Event/EventText.cs" id="1_gxsrv"]
+
+[resource]
+script = ExtResource("1_gxsrv")
+PageCount = 2
+text0 = "  你越靠近塔，窒息感愈发强烈，直至一阵寒风吹过，使你全身刺痛。你从这疼痛中清醒过来，步伐也愈加稳重。"
+text1 = "幽暗的大门闪烁着辉光，你感到"
+text2 = ""

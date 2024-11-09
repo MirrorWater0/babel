@@ -1,0 +1,267 @@
+[gd_scene load_steps=25 format=3 uid="uid://doyjra72lkmkl"]
+
+[ext_resource type="Script" path="res://effect/Echo/burn/Burn.cs" id="1_34qul"]
+[ext_resource type="Texture2D" uid="uid://v2l7fd6snpvn" path="res://asset/particle1.png" id="2_ll6mx"]
+[ext_resource type="Script" path="res://effect/BaseSkillEffect/attack/Line.cs" id="2_rck0r"]
+[ext_resource type="Texture2D" uid="uid://w28hn2xbb1xo" path="res://asset/mask.png" id="4_y6run"]
+[ext_resource type="Texture2D" uid="uid://cvei3mhm5tsj0" path="res://asset/skillEffectIcon/f2.png" id="5_465wd"]
+[ext_resource type="Texture2D" uid="uid://c57sgeu6p328u" path="res://asset/skillEffectIcon/cycle.png" id="6_k1rye"]
+[ext_resource type="AudioStream" uid="uid://dbusy71gjsm76" path="res://asset/audio/火球火焰袭来的声音.wav" id="7_sxngb"]
+
+[sub_resource type="Animation" id="Animation_xs6mr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("F2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.46104, 1.46104)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("F2:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0.31, 0.31, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mqmv3"]
+resource_name = "burn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 2342.34]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("F2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0333333, 0.2, 0.633333, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.5, 0.5), Vector2(1.6, 1.6), Vector2(1.6, 1.6), Vector2(1.46104, 1.46104)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("F2:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 0.14, 0.14, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3gms3"]
+_data = {
+"RESET": SubResource("Animation_xs6mr"),
+"burn": SubResource("Animation_mqmv3")
+}
+
+[sub_resource type="Shader" id="Shader_5c84b"]
+code = "shader_type canvas_item;
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	COLOR.a = 0.0;
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oatgr"]
+shader = SubResource("Shader_5c84b")
+
+[sub_resource type="Curve" id="Curve_nfkhe"]
+_data = [Vector2(0, 0.21978), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_x3gyx"]
+colors = PackedColorArray(0, 8.648, 10.811, 0.729, 0.779606, 0.938297, 1, 1)
+
+[sub_resource type="Curve2D" id="Curve2D_uorei"]
+_data = {
+"points": PackedVector2Array(-78.3114, -5.26118, 78.3114, 5.26118, 163.211, 10.6154, 0.0291838, -27.7459, -0.0291838, 27.7459, 315.807, 61.0382, 82.6783, 0.49991, -82.6783, -0.49991, 130.038, 110.134, 0.165304, 33.5913, -0.165304, -33.5913, -67.6728, 59.7113, -48.345, 6.54686, 48.345, -6.54686, 68.9997, 10.6154)
+}
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_7jfxe"]
+max_value = 0.5
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.34, 0.214286), 0.0, 0.0, 0, 0, Vector2(0.806667, 0.203297), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_mwuhv"]
+curve = SubResource("Curve_7jfxe")
+
+[sub_resource type="Curve" id="Curve_nsyjd"]
+_data = [Vector2(0, 0.307692), 0.0, 0.0, 0, 0, Vector2(0.246667, 0.494505), 0.0, 0.0, 0, 0, Vector2(0.88, 0.483516), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_l5t8k"]
+curve = SubResource("Curve_nsyjd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bhwbi"]
+particle_flag_disable_z = true
+radial_velocity_min = 526.88
+radial_velocity_max = 1000.0
+gravity = Vector3(0, 98, 0)
+radial_accel_min = -81.72
+radial_accel_max = -46.24
+scale_curve = SubResource("CurveTexture_l5t8k")
+color = Color(1, 1, 1, 0.065)
+alpha_curve = SubResource("CurveTexture_mwuhv")
+
+[sub_resource type="Shader" id="Shader_5lgxs"]
+code = "shader_type canvas_item;
+
+uniform float alpha : hint_range(0.0, 1.0, 0.1);
+
+uniform sampler2D noise_tex;
+varying vec4 modulate;
+void vertex() {
+	modulate =COLOR;
+}
+
+void fragment() {
+	vec2 uv = UV;
+	vec2 noise_uv = UV;
+	
+	noise_uv.y = fract(noise_uv.y + TIME);
+	
+	vec4 noise_color = texture(noise_tex,noise_uv);
+	float noise = clamp(pow(noise_color.r,2.0),0.0,1.0)*0.5;
+	
+	
+	//uv = (uv-vec2(0.5))*0.2 + vec2(0.25);
+	uv.y += noise-0.3;
+	uv = (uv-vec2(0.5)) + vec2(0.5);
+	vec4 tex_color = texture(TEXTURE,uv);
+	COLOR = tex_color;
+	COLOR.rgb = (1.0 - tex_color.rgb)*4.0;
+	COLOR.a = COLOR.a*2.0*alpha*modulate.a;
+	
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_yuiy5"]
+frequency = 0.0032
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_w1eyl"]
+seamless = true
+noise = SubResource("FastNoiseLite_yuiy5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g7dnj"]
+resource_local_to_scene = true
+shader = SubResource("Shader_5lgxs")
+shader_parameter/alpha = 1.0
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_w1eyl")
+
+[node name="Burn" type="Node2D"]
+position = Vector2(274, 124)
+script = ExtResource("1_34qul")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3gms3")
+}
+autoplay = "burn"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+clip_children = 2
+material = SubResource("ShaderMaterial_oatgr")
+offset_left = -207.0
+offset_top = -5.0
+offset_right = 247.0
+offset_bottom = 172.0
+texture = ExtResource("4_y6run")
+expand_mode = 1
+
+[node name="Line2D" type="Line2D" parent="TextureRect" node_paths=PackedStringArray("target")]
+position = Vector2(256, 135)
+width_curve = SubResource("Curve_nfkhe")
+gradient = SubResource("Gradient_x3gyx")
+script = ExtResource("2_rck0r")
+target = NodePath("../../Path2D/PathFollow2D/Sprite2D")
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-83, 66)
+scale = Vector2(0.753626, 0.753626)
+curve = SubResource("Curve2D_uorei")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(163.211, 10.6154)
+rotation = 0.067082
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D"]
+visible = false
+texture = ExtResource("2_ll6mx")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+visible = false
+self_modulate = Color(40, 0.067, 0.039, 0.443)
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_bhwbi")
+texture = ExtResource("2_ll6mx")
+lifetime = 1.5
+explosiveness = 1.0
+
+[node name="F2" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.31, 0.31, 1)
+material = SubResource("ShaderMaterial_g7dnj")
+position = Vector2(-0.999999, -94.448)
+scale = Vector2(1.46104, 1.46104)
+texture = ExtResource("5_465wd")
+
+[node name="Cycle" type="Sprite2D" parent="F2"]
+visible = false
+scale = Vector2(0.684444, 0.684444)
+texture = ExtResource("6_k1rye")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_sxngb")
+autoplay = true

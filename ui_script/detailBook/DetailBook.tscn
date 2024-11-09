@@ -1,0 +1,109 @@
+[gd_scene load_steps=11 format=3 uid="uid://drms5d1odo5fk"]
+
+[ext_resource type="Script" path="res://ui_script/detailBook/DetailBook.cs" id="1_chh62"]
+[ext_resource type="Texture2D" uid="uid://c2tbudqeupjfq" path="res://asset/charater/echo.png" id="2_my35w"]
+[ext_resource type="Texture2D" uid="uid://gywhvlm1s82a" path="res://asset/ui/board.png" id="3_aw4go"]
+[ext_resource type="Texture2D" uid="uid://cg3tmtcgd5xb8" path="res://asset/stateIcon/buff_power.png" id="4_6wu1d"]
+[ext_resource type="Texture2D" uid="uid://eokyp8ir7wi6" path="res://asset/stateIcon/rigidity.png" id="5_lc0mi"]
+[ext_resource type="Texture2D" uid="uid://c855loajk1rru" path="res://asset/ui/箭头.png" id="6_vqd3l"]
+[ext_resource type="Texture2D" uid="uid://bt5b6tmnxs15q" path="res://asset/ui/箭头press.png" id="7_pgw2p"]
+[ext_resource type="Shader" path="res://shader/button.gdshader" id="8_1ygyg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vdm6t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rc27b"]
+shader = ExtResource("8_1ygyg")
+shader_parameter/pressed = false
+shader_parameter/Hover = false
+
+[node name="detailBook" type="CanvasLayer"]
+layer = 4
+script = ExtResource("1_chh62")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+light_mask = 0
+offset_right = 1922.0
+offset_bottom = 1102.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.897)
+
+[node name="TextureCharater" type="TextureRect" parent="ColorRect"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 168.0
+offset_right = 503.0
+offset_bottom = 863.0
+mouse_filter = 0
+texture = ExtResource("2_my35w")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = 285.0
+offset_top = 885.0
+offset_right = 411.0
+offset_bottom = 929.0
+mouse_filter = 0
+theme_override_font_sizes/font_size = 30
+text = "power:1"
+
+[node name="BuffPower" type="Sprite2D" parent="Label"]
+position = Vector2(-25, 22)
+scale = Vector2(2, 2)
+texture = ExtResource("4_6wu1d")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 276.0
+offset_top = 949.0
+offset_right = 403.0
+offset_bottom = 993.0
+mouse_filter = 0
+theme_override_font_sizes/font_size = 30
+text = "rigidity:1"
+
+[node name="BuffRigidity" type="Sprite2D" parent="Label2"]
+position = Vector2(-25, 22)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_lc0mi")
+
+[node name="board" type="TextureRect" parent="."]
+offset_left = 513.0
+offset_top = 163.0
+offset_right = 1762.0
+offset_bottom = 901.0
+mouse_filter = 2
+texture = ExtResource("3_aw4go")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="board"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 55.0
+offset_right = 1163.0
+offset_bottom = 671.0
+scroll_deadzone = 2
+
+[node name="GridContainer" type="GridContainer" parent="board/ScrollContainer"]
+layout_mode = 2
+columns = 6
+
+[node name="arrowButton1" type="TextureButton" parent="."]
+material = SubResource("ShaderMaterial_vdm6t")
+offset_left = 28.0
+offset_top = 871.0
+offset_right = 348.0
+offset_bottom = 1051.0
+rotation = -1.5708
+texture_normal = ExtResource("6_vqd3l")
+texture_pressed = ExtResource("7_pgw2p")
+
+[node name="arrowButton2" type="TextureButton" parent="."]
+material = SubResource("ShaderMaterial_rc27b")
+offset_left = 1954.0
+offset_top = 576.0
+offset_right = 2274.0
+offset_bottom = 756.0
+rotation = 1.5708
+texture_normal = ExtResource("6_vqd3l")
+texture_pressed = ExtResource("7_pgw2p")
+
+[connection signal="pressed" from="arrowButton1" to="." method="switchInfo"]
+[connection signal="pressed" from="arrowButton2" to="." method="switchInfo"]

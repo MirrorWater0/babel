@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://cebio4jff4uv"]
+
+[ext_resource type="Texture2D" uid="uid://b7gw22mmhkh30" path="res://asset/charater/charaterIcon/iconJulius.png" id="1_5wwav"]
+[ext_resource type="Script" path="res://Game/interface/ChoseDisplay/ChoseDisplay.cs" id="1_hey3g"]
+[ext_resource type="PackedScene" uid="uid://b80ch40i04ik7" path="res://charater/player/Julius/Julius.tscn" id="1_u1g0s"]
+[ext_resource type="Texture2D" uid="uid://di27e1msw8q5g" path="res://asset/illustration/裂空.jpg" id="2_2otuk"]
+[ext_resource type="Texture2D" uid="uid://cs3u5d1xya50o" path="res://asset/charater/Julius.png" id="3_dvu7w"]
+
+[resource]
+script = ExtResource("1_hey3g")
+illustration = ExtResource("2_2otuk")
+portrait = ExtResource("3_dvu7w")
+charaterScene = ExtResource("1_u1g0s")
+charaterName = "Julius"
+charaterIcon = ExtResource("1_5wwav")

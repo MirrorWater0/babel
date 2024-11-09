@@ -1,0 +1,174 @@
+[gd_scene load_steps=15 format=3 uid="uid://bqxm361eotyph"]
+
+[ext_resource type="Script" path="res://effect/passitity/PassitityTrigger.cs" id="1_mgpgl"]
+[ext_resource type="Shader" path="res://effect/passitity/Speed.gdshader" id="1_uctp5"]
+[ext_resource type="Shader" path="res://crosslight.gdshader" id="2_bteuj"]
+[ext_resource type="Shader" path="res://shader/ring0.gdshader" id="3_xytn2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_70g6h"]
+shader = ExtResource("1_uctp5")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_cfdqt"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5irs1"]
+noise = SubResource("FastNoiseLite_cfdqt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_40a1n"]
+shader = ExtResource("2_bteuj")
+shader_parameter/size = 0.0
+shader_parameter/destColor = Vector3(0.3, 0.5, 0.6)
+shader_parameter/noise = SubResource("NoiseTexture2D_5irs1")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_d6ajp"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xkpat"]
+noise = SubResource("FastNoiseLite_d6ajp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sikvf"]
+shader = ExtResource("3_xytn2")
+shader_parameter/radius = 0.58
+shader_parameter/thickness = 0.0
+shader_parameter/color = Vector4(0.3, 0.4, 0.5, 1)
+shader_parameter/brightness = 13.83
+shader_parameter/angular_speed = 5.0
+shader_parameter/radial_speed = 0.16
+shader_parameter/alpha = 1.0
+shader_parameter/noise = SubResource("NoiseTexture2D_xkpat")
+
+[sub_resource type="Animation" id="Animation_6q1w1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cross:material:shader_parameter/size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ring:material:shader_parameter/thickness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ring:material:shader_parameter/alpha")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ring:material:shader_parameter/radius")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.58]
+}
+
+[sub_resource type="Animation" id="Animation_btiiq"]
+resource_name = "trigger"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cross:material:shader_parameter/size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.366667, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0014, 0.0014, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ring:material:shader_parameter/thickness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.366667, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.02, 0.02, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ring:material:shader_parameter/alpha")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("ring:material:shader_parameter/radius")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.19, 0.76, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2t3nw"]
+_data = {
+"RESET": SubResource("Animation_6q1w1"),
+"trigger": SubResource("Animation_btiiq")
+}
+
+[node name="PassitityTrigger" type="Node2D"]
+script = ExtResource("1_mgpgl")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_70g6h")
+offset_right = 1925.0
+offset_bottom = 1080.0
+
+[node name="cross" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_40a1n")
+offset_left = -741.0
+offset_top = -460.0
+offset_right = 742.0
+offset_bottom = 461.0
+
+[node name="ring" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_sikvf")
+offset_left = -570.0
+offset_top = -549.0
+offset_right = 571.0
+offset_bottom = 550.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2t3nw")
+}
+autoplay = "trigger"

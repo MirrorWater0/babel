@@ -1,0 +1,92 @@
+[gd_scene load_steps=15 format=3 uid="uid://clfnu0jtx7yvk"]
+
+[ext_resource type="PackedScene" uid="uid://c2mftc0yopnig" path="res://charater/enimy/EnemyTemplate.tscn" id="1_eefm0"]
+[ext_resource type="Texture2D" uid="uid://b0811gwjbaf4q" path="res://asset/enemies/demon.png" id="2_kd5ds"]
+[ext_resource type="Script" path="res://charater/enimy/war/Demon.cs" id="3_2442m"]
+[ext_resource type="Shader" path="res://shader/airflow.gdshader" id="13_bpp7i"]
+[ext_resource type="Texture2D" uid="uid://cvei3mhm5tsj0" path="res://asset/skillEffectIcon/f2.png" id="14_t01oo"]
+[ext_resource type="Shader" path="res://crosslight.gdshader" id="15_3pb4r"]
+
+[sub_resource type="Shader" id="Shader_yvqo8"]
+code = "shader_type canvas_item;
+
+uniform bool hasblock;
+uniform vec4 color;
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	vec2 uv = UV;
+	vec4 tex_color = texture(TEXTURE,uv);
+	COLOR.a = COLOR.a*(1.0 - step(0.6,tex_color.r));
+	if(hasblock){
+		COLOR = vec4(0.3,0.9,0.95,COLOR.a);
+	}
+	
+}
+
+//void light() {
+	// Called for every pixel for every light affecting the CanvasItem.
+	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ecmh"]
+resource_local_to_scene = true
+shader = SubResource("Shader_yvqo8")
+shader_parameter/hasblock = null
+shader_parameter/color = Vector4(1, 1, 1, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fq026"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p2ala"]
+noise = SubResource("FastNoiseLite_fq026")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ybu5"]
+shader = ExtResource("13_bpp7i")
+shader_parameter/alpha = 0.01
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_p2ala")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8gbsy"]
+frequency = 0.0234
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_acftk"]
+noise = SubResource("FastNoiseLite_8gbsy")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2vaxk"]
+shader = ExtResource("15_3pb4r")
+shader_parameter/size = 0.0008
+shader_parameter/destColor = Vector3(1, 0.1, 0.1)
+shader_parameter/noise = SubResource("NoiseTexture2D_acftk")
+
+[node name="Demon" instance=ExtResource("1_eefm0")]
+texture = ExtResource("2_kd5ds")
+script = ExtResource("3_2442m")
+
+[node name="lifeline" parent="." index="1"]
+material = SubResource("ShaderMaterial_8ecmh")
+
+[node name="block" parent="." index="3"]
+offset_top = -797.28
+offset_bottom = -524.276
+
+[node name="shderEffect" type="Node2D" parent="." index="9"]
+
+[node name="ColorRect2" type="TextureRect" parent="shderEffect" index="0"]
+material = SubResource("ShaderMaterial_8ybu5")
+offset_left = -2486.67
+offset_top = 400.0
+offset_right = 1496.33
+offset_bottom = 3112.0
+rotation = -0.812722
+texture = ExtResource("14_t01oo")
+
+[node name="crosslight" type="ColorRect" parent="shderEffect" index="1"]
+material = SubResource("ShaderMaterial_2vaxk")
+offset_left = -1120.0
+offset_top = -686.667
+offset_right = 957.0
+offset_bottom = -326.667
+
+[editable path="actionLabel"]

@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdyrue4ik2yfe"]
+
+[ext_resource type="Script" path="res://Game/battle/SelectCard.cs" id="1_b3f00"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4wvsu"]
+size = Vector2(200, 250)
+
+[node name="SelectCard" type="Node2D"]
+script = ExtResource("1_b3f00")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 4
+
+[node name="blackmask" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1924.0
+offset_bottom = 1082.0
+mouse_filter = 1
+color = Color(0, 0, 0, 0.73)
+
+[node name="Area2D1" type="Area2D" parent="CanvasLayer"]
+position = Vector2(536, 416)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Area2D1"]
+shape = SubResource("RectangleShape2D_4wvsu")
+
+[node name="Area2D2" type="Area2D" parent="CanvasLayer"]
+position = Vector2(917, 411)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Area2D2"]
+shape = SubResource("RectangleShape2D_4wvsu")
+
+[node name="Area2D3" type="Area2D" parent="CanvasLayer"]
+position = Vector2(1296, 415)
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanvasLayer/Area2D3"]
+shape = SubResource("RectangleShape2D_4wvsu")
+
+[node name="blackmask2" type="ColorRect" parent="CanvasLayer"]
+z_index = 1
+offset_right = 1924.0
+offset_bottom = 1082.0
+mouse_filter = 1
+color = Color(0, 0, 0, 0)
+
+[connection signal="mouse_entered" from="CanvasLayer/Area2D1" to="." method="Hover1"]
+[connection signal="mouse_exited" from="CanvasLayer/Area2D1" to="." method="UnHover"]
+[connection signal="mouse_entered" from="CanvasLayer/Area2D2" to="." method="Hover2"]
+[connection signal="mouse_exited" from="CanvasLayer/Area2D2" to="." method="UnHover"]
+[connection signal="mouse_entered" from="CanvasLayer/Area2D3" to="." method="Hover3"]
+[connection signal="mouse_exited" from="CanvasLayer/Area2D3" to="." method="UnHover"]

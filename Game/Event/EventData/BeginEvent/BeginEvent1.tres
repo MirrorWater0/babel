@@ -1,0 +1,30 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://di62hk1ykmfgw"]
+
+[ext_resource type="Resource" uid="uid://df1k5ymjm4u6p" path="res://Game/Event/EventData/BeginEvent/goto.tres" id="1_iea63"]
+[ext_resource type="Script" path="res://Game/Event/EventData/EventData.cs" id="4_82xjs"]
+[ext_resource type="Resource" uid="uid://c5efso5s4d2sd" path="res://Game/Event/EventData/BeginEvent/beginText0.tres" id="5_osv2c"]
+
+[resource]
+script = ExtResource("4_82xjs")
+text = ExtResource("5_osv2c")
+ButtonText1 = "充满力量"
+changeBuff1 = {
+"Power": 0.2,
+"Rigidity": -0.1
+}
+next1 = ExtResource("1_iea63")
+SoulDebrisCost1 = 4
+ButtonText2 = "小心谨慎"
+changeBuff2 = {
+"Power": -0.1,
+"Rigidity": 0.2
+}
+next2 = ExtResource("1_iea63")
+SoulDebrisCost2 = 4
+ButtonText3 = "心如止水"
+changeBuff3 = {
+"Power": 0.1,
+"Rigidity": 0.1
+}
+next3 = ExtResource("1_iea63")
+SoulDebrisCost3 = 3

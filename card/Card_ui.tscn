@@ -1,0 +1,435 @@
+[gd_scene load_steps=32 format=3 uid="uid://ds5bh6ury5dmb"]
+
+[ext_resource type="Shader" path="res://shader/cardui.gdshader" id="1_s8vu7"]
+[ext_resource type="Texture2D" uid="uid://biyjcxh17mi3s" path="res://asset/card/card1.svg" id="2_jfxqr"]
+[ext_resource type="Script" path="res://card/Card_ui.cs" id="3_1l072"]
+[ext_resource type="Shader" path="res://shader/Chain.gdshader" id="4_4rdix"]
+[ext_resource type="Texture2D" uid="uid://15lif4w1q24o" path="res://asset/card/cardIcon/sword0.png" id="4_hhh8q"]
+[ext_resource type="Shader" path="res://shader/card.gdshader" id="4_ofndb"]
+[ext_resource type="Texture2D" uid="uid://bjdgislqyvj4c" path="res://asset/card/card2.svg" id="4_u4b8g"]
+[ext_resource type="Script" path="res://card/CardTexture.cs" id="5_okkmh"]
+[ext_resource type="FontFile" uid="uid://hi1dr38e6in8" path="res://asset/front/CormorantSC-Bold.ttf" id="6_j22ba"]
+[ext_resource type="Script" path="res://card/Detector1.cs" id="7_bwdul"]
+[ext_resource type="Texture2D" uid="uid://dvc1hxhw6afvh" path="res://asset/shadow.png" id="8_k0u65"]
+[ext_resource type="PackedScene" uid="uid://b5qqrrag2fj62" path="res://effect/trail.tscn" id="10_3ujxq"]
+[ext_resource type="AudioStream" uid="uid://c0puueum5c1ix" path="res://asset/audio/切换卡.mp3" id="13_gobft"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4ycak"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_u86nb"]
+noise = SubResource("FastNoiseLite_4ycak")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oaknf"]
+resource_local_to_scene = true
+shader = ExtResource("1_s8vu7")
+shader_parameter/fire_on = false
+shader_parameter/edge_size = 0.98
+shader_parameter/noise_size = 9.3
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_u86nb")
+
+[sub_resource type="Theme" id="Theme_tw7ud"]
+default_font_size = 50
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1tgar"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1ef8b"]
+noise = SubResource("FastNoiseLite_1tgar")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mrgbt"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_orh3t"]
+noise = SubResource("FastNoiseLite_mrgbt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_alawo"]
+resource_local_to_scene = true
+shader = ExtResource("4_ofndb")
+shader_parameter/interact = false
+shader_parameter/offset = -1.0
+shader_parameter/time = 0.0
+shader_parameter/burn_process = 1.0
+shader_parameter/noise_tex = SubResource("NoiseTexture2D_orh3t")
+shader_parameter/noise_edge_tex = SubResource("NoiseTexture2D_1ef8b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kvnaw"]
+resource_local_to_scene = true
+shader = ExtResource("4_4rdix")
+shader_parameter/offset = 0.0
+shader_parameter/light = 0.0
+shader_parameter/outline_color = Color(0, 70.27, 84.865, 1)
+shader_parameter/progress = 1.0
+shader_parameter/width = 0.006
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qbbjg"]
+size = Vector2(132, 205.073)
+
+[sub_resource type="Animation" id="Animation_aarbg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cardTexture:material:shader_parameter/burn_process")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:material:shader_parameter/fire_on")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("cardTexture:material:shader_parameter/offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:self_modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_cxrvi"]
+resource_name = "appear"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/fire_on")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cardTexture:material:shader_parameter/offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [4.0, -1.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.3, 0.3), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mpm2j"]
+resource_name = "cardfade"
+length = 0.6
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/fire_on")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cardTexture:material:shader_parameter/offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.0, 4.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("cardTexture:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.408)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.35, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.2), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jeebn"]
+resource_name = "exhust"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cardTexture:material:shader_parameter/burn_process")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material:shader_parameter/fire_on")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.266667, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_o35rc"]
+resource_name = "hover"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mlye5"]
+_data = {
+"RESET": SubResource("Animation_aarbg"),
+"appear": SubResource("Animation_cxrvi"),
+"cardfade": SubResource("Animation_mpm2j"),
+"exhust": SubResource("Animation_jeebn"),
+"hover": SubResource("Animation_o35rc")
+}
+
+[sub_resource type="Curve2D" id="Curve2D_rewhl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 710.043, 87.087, 0, 0, 0, 0, 101.348, 87.087, 0, 0, 0, 0, 97, 1030.57, 0, 0, 0, 0, 710.043, 1034.91, 0, 0, 0, 0, 710.043, 87.087)
+}
+point_count = 5
+
+[node name="cardUI" type="TextureRect" node_paths=PackedStringArray("animate")]
+z_index = 1
+material = SubResource("ShaderMaterial_oaknf")
+custom_minimum_size = Vector2(195, 258)
+offset_right = 195.0
+offset_bottom = 258.29
+pivot_offset = Vector2(97, 129.145)
+tooltip_text = "this card"
+theme = SubResource("Theme_tw7ud")
+texture = ExtResource("2_jfxqr")
+expand_mode = 1
+script = ExtResource("3_1l072")
+animate = NodePath("AnimationPlayer")
+
+[node name="cardTexture" type="TextureRect" parent="." node_paths=PackedStringArray("detector")]
+material = SubResource("ShaderMaterial_alawo")
+layout_mode = 0
+offset_right = 195.0
+offset_bottom = 258.29
+texture = ExtResource("4_u4b8g")
+expand_mode = 1
+script = ExtResource("5_okkmh")
+detector = NodePath("../detector")
+metadata/_edit_lock_ = true
+
+[node name="cardIcon" type="TextureRect" parent="cardTexture"]
+z_index = 1
+material = SubResource("ShaderMaterial_kvnaw")
+use_parent_material = true
+layout_mode = 0
+offset_left = 24.0
+offset_top = 38.0
+offset_right = 173.0
+offset_bottom = 187.0
+texture = ExtResource("4_hhh8q")
+expand_mode = 1
+
+[node name="cost" type="Label" parent="cardTexture"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 13.0
+offset_top = 16.0
+offset_right = 283.0
+offset_bottom = 199.0
+scale = Vector2(0.23, 0.23)
+theme_override_colors/font_color = Color(0.745098, 1, 1, 1)
+theme_override_constants/outline_size = 30
+theme_override_fonts/font = ExtResource("6_j22ba")
+theme_override_font_sizes/font_size = 150
+text = "3"
+horizontal_alignment = 1
+
+[node name="cardname" type="Label" parent="cardTexture"]
+use_parent_material = true
+layout_mode = 0
+offset_left = 39.0
+offset_top = 174.0
+offset_right = 617.0
+offset_bottom = 357.0
+scale = Vector2(0.23, 0.23)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("6_j22ba")
+theme_override_font_sizes/font_size = 150
+text = "card
+"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="shadow" type="TextureRect" parent="cardTexture"]
+show_behind_parent = true
+clip_children = 2
+use_parent_material = true
+layout_mode = 0
+offset_left = 23.0
+offset_top = 20.0
+offset_right = 176.0
+offset_bottom = 240.0
+texture = ExtResource("8_k0u65")
+expand_mode = 1
+
+[node name="Line2D" parent="cardTexture/shadow" node_paths=PackedStringArray("target") instance=ExtResource("10_3ujxq")]
+position = Vector2(-83.9565, -74.0435)
+default_color = Color(0.8, 24.324, 24.865, 1)
+target = NodePath("../../../Path2D/PathFollow2D/Node2D")
+
+[node name="detector" type="Area2D" parent="."]
+collision_mask = 2
+priority = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detector"]
+visible = false
+position = Vector2(99, 125.464)
+shape = SubResource("RectangleShape2D_qbbjg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mlye5")
+}
+
+[node name="detector1" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("7_bwdul")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detector1"]
+visible = false
+position = Vector2(99, 125.464)
+shape = SubResource("RectangleShape2D_qbbjg")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="detector1"]
+stream = ExtResource("13_gobft")
+volume_db = 2.0
+pitch_scale = 1.2
+max_polyphony = 2
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(0.0679088, 1.06181)
+scale = Vector2(0.24496, 0.228946)
+curve = SubResource("Curve2D_rewhl")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(710.043, 87.087)
+rotation = 3.14159
+
+[node name="Node2D" type="Node2D" parent="Path2D/PathFollow2D"]
+
+[node name="AudioManager" type="Node" parent="."]
+
+[node name="appear" type="AudioStreamPlayer" parent="AudioManager"]
+stream = ExtResource("13_gobft")
+volume_db = 15.0
+pitch_scale = 1.2
+max_polyphony = 10

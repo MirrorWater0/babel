@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=5 format=3 uid="uid://df1k5ymjm4u6p"]
+
+[ext_resource type="PackedScene" uid="uid://clfnu0jtx7yvk" path="res://charater/enimy/war/Demon.tscn" id="1_fpsd7"]
+[ext_resource type="Script" path="res://Game/Event/EventData/Next.cs" id="1_gv2k6"]
+[ext_resource type="PackedScene" uid="uid://bf7x6n2qeppf4" path="res://Game/battle/Game.tscn" id="1_r86uu"]
+[ext_resource type="PackedScene" uid="uid://ck4djbuqudk33" path="res://charater/enimy/war/Guardian.tscn" id="2_65cau"]
+
+[resource]
+script = ExtResource("1_gv2k6")
+NextScene = ExtResource("1_r86uu")
+enemylist = Array[PackedScene]([ExtResource("1_fpsd7"), ExtResource("2_65cau")])

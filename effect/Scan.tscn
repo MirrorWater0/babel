@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2xgvs6tvt4x8"]
+
+[ext_resource type="Shader" path="res://shader/scan.gdshader" id="1_0knsh"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_5vxu6"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_o8tfc"]
+noise = SubResource("FastNoiseLite_5vxu6")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e8occ"]
+shader = ExtResource("1_0knsh")
+shader_parameter/speed = 3.0
+shader_parameter/line_color = Color(10, 0.106, 0.188, 0.851)
+shader_parameter/trail_color = Color(0.759, 0.053, 0.03, 0.8)
+shader_parameter/trail_length = 0.2
+shader_parameter/nois_tex = SubResource("NoiseTexture2D_o8tfc")
+
+[node name="scan" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_e8occ")
+offset_right = 35.0
+offset_bottom = 33.0
+color = Color(0, 0, 0, 1)

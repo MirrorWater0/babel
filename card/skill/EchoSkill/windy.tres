@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://d1oo2ix3je80b"]
+
+[ext_resource type="Script" path="res://card/skill/Skill.cs" id="1_gncsv"]
+[ext_resource type="PackedScene" uid="uid://b1wpp8xyuw1qt" path="res://effect/Echo/windy/windy.tscn" id="1_l4b71"]
+[ext_resource type="Texture2D" uid="uid://bw2tb65cr65gj" path="res://asset/card/cardIcon/三角风.png" id="1_ynclx"]
+
+[resource]
+script = ExtResource("1_gncsv")
+name = "windy"
+charaterName = "Echo"
+cost = 1
+cardIcon = ExtResource("1_ynclx")
+releaseArea = 0
+once = false
+EffectScene = ExtResource("1_l4b71")
+description = "一阵清风贯穿了胸膛。抽取3张卡牌"
